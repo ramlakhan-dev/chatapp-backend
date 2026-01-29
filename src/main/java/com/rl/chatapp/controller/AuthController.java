@@ -1,5 +1,6 @@
 package com.rl.chatapp.controller;
 
+import com.rl.chatapp.dto.LoginRequest;
 import com.rl.chatapp.dto.SignupRequest;
 import com.rl.chatapp.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,12 @@ public class AuthController {
             @RequestBody SignupRequest signupRequest
     ) {
         return new ResponseEntity<>(authService.signup(signupRequest), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(
+            @RequestBody LoginRequest loginRequest
+    ) {
+        return new ResponseEntity<>(authService.login(loginRequest), HttpStatus.OK);
     }
 }
