@@ -1,8 +1,10 @@
 package com.rl.chatapp.controller;
 
 import com.rl.chatapp.dto.LoginRequest;
+import com.rl.chatapp.dto.RefreshTokenRequest;
 import com.rl.chatapp.dto.SignupRequest;
 import com.rl.chatapp.service.AuthService;
+import com.rl.chatapp.service.RefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private RefreshTokenService refreshTokenService;
+
     @PostMapping("/signup")
     public ResponseEntity<?> signup(
             @RequestBody SignupRequest signupRequest
@@ -30,5 +35,12 @@ public class AuthController {
             @RequestBody LoginRequest loginRequest
     ) {
         return new ResponseEntity<>(authService.login(loginRequest), HttpStatus.OK);
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refresh(
+            @RequestBody RefreshTokenRequest refreshTokenRequest
+    ) {
+        return new ResponseEntity<>(refreshTokenService.refresh(refreshTokenRequest), HttpStatus.OK);
     }
 }
