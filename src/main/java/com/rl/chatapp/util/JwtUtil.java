@@ -22,4 +22,14 @@ public class JwtUtil {
                 .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
                 .compact();
     }
+
+    public String extractEmail(String token) {
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(jwtSecret.getBytes())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
 }
